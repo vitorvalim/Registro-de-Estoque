@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Aula04</title>
+</head>
+<body>
+
+
+    <label>Placa</label>
+    <input type="text" id="placa">
+    <label>Molelo</label>
+    <input type="text" id="modelo">
+    <label for="">Ano Fabricação</label>
+    <input type="text" id="ano">
+    <input type="button" value="Cadastrar" onclick="cadastrar()">
+
+
+    <table id="estoque">
+        <tr style="background-color: #ccc; font-weight: bold;">
+            <td onclick="emprestar(this)">⬇️</td>
+            <td>Placa</td>
+            <td>Modelo</td>
+            <td>Ano Fabricação</td>
+        </tr>
+    </table>
+    <hr>
+    <table id="alugado">
+        <tr style="background-color: #ccc; font-weight: bold;">
+            <td onclick="devolve(this)">⬆️</td>
+            <td>Placa</td>
+            <td>Modelo</td>
+            <td>Ano Fabricação</td>
+        </tr>
+    </table>    
+    <script>
+        function cadastrar(){
+            var placa = document.getElementById("placa")
+            var modelo = document.getElementById("modelo")
+            var ano = document.getElementById("ano")    
+            var tabela = document.getElementById("estoque")
+
+            var novaLinha = tabela.insertRow(-1)
+            var cell0 = novaLinha.insertCell(0)
+            var cell1 = novaLinha.insertCell(1)
+            var cell2 = novaLinha.insertCell(2)
+            var cell3 = novaLinha.insertCell(3)
+
+            cell0.innerHTML = "⬇️"
+            cell1.innerHTML = placa.value
+            cell2.innerHTML = modelo.value
+            cell3.innerHTML = ano.value
+
+            cell0.onclick = function(){emp_filho(this)}
+
+            placa.value = ""
+            modelo.value = ""
+            ano.value = "" 
+        }
+
+        function emprestar(item){
+            console.log(item.parentNode.parentNode)
+            var tabela = item.parentNode.parentNode
+            var filhos = tabela.childNodes
+            var conta_filhos = filhos.length
+            console.log(conta_filhos)
+            var tabela2 = document.getElementById("alugado")
+
+            for(var i = 1; i < conta_filhos; i++){
+                if(filhos[i].nodeName != '#text')
+                tabela2.append(filhos[1])
+                //tabela2.append(filhos[i])
+            }
+        }
+
+        function emp_filho(filho){
+            var linha = filho.parentNode
+            var tabela2 = document.getElementById("alugado")
+            console.log(filho)
+            console.log(tabela2)
+            tabela2.append(linha)            
+        }
+
+    </script>   
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
