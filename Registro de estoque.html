@@ -18,21 +18,25 @@
     <input type="button" value="Cadastrar" onclick="cadastrar()">
 
 
-    <table id="estoque">
+    <table class="table">
+        <tbody id = "estoque">
         <tr style="background-color: #ccc; font-weight: bold;">
             <td onclick="emprestar(this)">⬇️</td>
             <td>Placa</td>
             <td>Modelo</td>
             <td>Ano Fabricação</td>
         </tr>
+        </tbody>
     </table>
     <hr>
-    <table id="alugado">
+    <table class="table">
+        <tbody id = "alugado">
         <tr style="background-color: #ccc; font-weight: bold;">
-            <td onclick="devolve(this)">⬆️</td>
+            <td onclick="resgatar(this)">⬆️</td>
             <td>Placa</td>
-            <td>Modelo</td>
+            <td>Modelo</td> 
             <td>Ano Fabricação</td>
+        </tbody>
         </tr>
     </table>    
     <script>
@@ -75,11 +79,35 @@
             }
         }
 
+
+
+        function resgatar(item){
+            var tabela = item.parentNode.parentNode
+            var filhos = tabela.childNodes
+            var conta_filhos = filhos.length
+            var tabela1 = document.getElementById("estoque")
+            
+            for(var i = 1; i < conta_filhos; i++){
+                if(filhos[i].nodeName != '#text')
+                tabela1.append(filhos[1])
+                //tabela1.append(filhos[i])
+            }
+        }
+
+        function resgata_filho(filho){
+            filho.innerHTML = "⬇️"
+            var linha = filho.parentNode
+            var tabela1 = document.getElementById("estoque")
+            filho.onclick = function(){emp_filho(this)}
+            console.log(linha)
+            tabela1.append(linha)            
+        }
+        
         function emp_filho(filho){
+            filho.innerHTML = "⬆️"
             var linha = filho.parentNode
             var tabela2 = document.getElementById("alugado")
-            console.log(filho)
-            console.log(tabela2)
+            filho.onclick = function(){resgata_filho(this)}
             tabela2.append(linha)            
         }
 
